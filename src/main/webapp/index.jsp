@@ -70,8 +70,6 @@
             <li class="layui-nav-item">
                 <a class="name" href="javascript:;"><img src="./backstage/frame/static/image/code.png" alt="logo"> Admin </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" href-url="./backstage/demo/login.html"><i class="layui-icon">&#xe621;</i>登录页</a></dd>
-                    <dd><a href="javascript:;" href-url="./backstage/demo/map.html"><i class="layui-icon">&#xe621;</i>图表</a></dd>
                     <dd><a href="${pageContext.request.contextPath }/shiro/exit"><i class="layui-icon">&#x1006;</i>退出</a></dd>
                 </dl>
             </li>

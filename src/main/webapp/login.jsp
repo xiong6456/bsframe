@@ -38,10 +38,13 @@
             <label class="layui-form-label">验证码：</label>
 
             <div class="layui-input-inline">
-                <input type="number" name="code" class="layui-input" lay-verify="code" placeholder="验证码" maxlength="4"/><img
-                    src="/backstage/frame/static/image/v.png" alt="">
+                <input type="number" name="validateCode" class="layui-input" lay-verify="validateCode" placeholder="验证码" maxlength="4"/><img
+                    id="validateCodeImg" src="${pageContext.request.contextPath}/shiro/validateCode" alt="" onclick="reloadValidateCode()" />
             </div>
         </div>
+        <%--<div class="layui-form-item" style="margin-bottom: 20px;">
+            <input type="checkbox" name="remember" lay-skin="primary" title="记住密码"><div class="layui-unselect layui-form-checkbox" lay-skin="primary"><span>记住密码</span><i class="layui-icon layui-icon-ok"></i></div>
+        </div>--%>
         <div class="layui-form-item">
             <button type="reset" class="layui-btn layui-btn-danger btn-reset">重置</button>
             <button type="button" class="layui-btn btn-submit" lay-submit="" lay-filter="sub">立即登录</button>
@@ -50,6 +53,7 @@
 </div>
 
 <script type="text/javascript" src="/resource/layui/layui.js"></script>
+<script type="text/javascript" src="/common/js/jquery-2.1.3.min.js"></script>
 <script type="text/javascript">
     layui.use(['form', 'layer'], function () {
 
@@ -70,7 +74,7 @@
                     return "请输入密码";
                 }
             },
-            code: function (value) {
+            validateCode: function (value) {
                 if (value == "") {
                     return "请输入验证码";
                 }
@@ -101,9 +105,11 @@
             return false;
         });
 
-        // you code ...
     })
 
+    function reloadValidateCode(){
+        $("#validateCodeImg").attr("src","${pageContext.request.contextPath}/shiro/validateCode?data=" + new Date() + Math.floor(Math.random()*24));
+    }
 </script>
 </body>
 </html>
