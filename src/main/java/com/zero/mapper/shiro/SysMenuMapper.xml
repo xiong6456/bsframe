@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zero.mapper.shiro.SysMenuMapper">
+	<resultMap id="BaseResultMap" type="com.zero.pojo.SysMenu">
+		<id column="fd_id" property="fdId" jdbcType="VARCHAR" />
+		<result column="fd_name" property="fdName" jdbcType="VARCHAR" />
+		<result column="fd_description" property="fdDescription"
+			jdbcType="VARCHAR" />
+		<result column="fd_parent_id" property="fdParentId" jdbcType="VARCHAR" />
+		<result column="fd_child_count" property="fdChildCount"
+			jdbcType="BIGINT" />
+		<result column="fd_is_child" property="fdIsChild" jdbcType="VARCHAR" />
+		<result column="fd_run_script" property="fdRunScript" jdbcType="VARCHAR" />
+		<result column="fd_order" property="fdOrder" jdbcType="INTEGER" />
+		<result column="fd_term" property="fdTerm" jdbcType="VARCHAR" />
+		<result column="fd_due_time" property="fdDueTime" jdbcType="VARCHAR" />
+		<result column="fd_iframe" property="fdIframe" jdbcType="VARCHAR" />
+		<result column="fd_state" property="fdState" jdbcType="VARCHAR" />
+		<result column="fd_cls" property="fdCls" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		fd_id, fd_name, fd_description, fd_parent_id,
+		fd_child_count, fd_is_child,
+		fd_run_script, fd_order,
+		fd_term,
+		fd_due_time, fd_iframe,
+		fd_state,
+		fd_cls
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.zero.pojo.SysMenuExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from sys_menu
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from sys_menu
+		where fd_id = #{fdId,jdbcType=VARCHAR}
+		order by fd_order
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		sys_menu
+		where fd_id = #{fdId,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.zero.pojo.SysMenuExample">
+		delete from sys_menu
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.zero.pojo.SysMenu">
+		insert into sys_menu (fd_id,
+		fd_name, fd_description,
+		fd_parent_id, fd_child_count, fd_is_child,
+		fd_run_script,
+		fd_order, fd_term, fd_due_time,
+		fd_iframe, fd_state,
+		fd_cls
+		)
+		values
+		(#{fdId,jdbcType=VARCHAR}, #{fdName,jdbcType=VARCHAR},
+		#{fdDescription,jdbcType=VARCHAR},
+		#{fdParentId,jdbcType=VARCHAR},
+		#{fdChildCount,jdbcType=BIGINT}, #{fdIsChild,jdbcType=VARCHAR},
+		#{fdRunScript,jdbcType=VARCHAR},
+		#{fdOrder,jdbcType=INTEGER},
+		#{fdTerm,jdbcType=VARCHAR}, #{fdDueTime,jdbcType=VARCHAR},
+		#{fdIframe,jdbcType=VARCHAR},
+		#{fdState,jdbcType=VARCHAR},
+		#{fdCls,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.zero.pojo.SysMenu">
+		insert into sys_menu
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="fdId != null">
+				fd_id,
+			</if>
+			<if test="fdName != null">
+				fd_name,
+			</if>
+			<if test="fdDescription != null">
+				fd_description,
+			</if>
+			<if test="fdParentId != null">
+				fd_parent_id,
+			</if>
+			<if test="fdChildCount != null">
+				fd_child_count,
+			</if>
+			<if test="fdIsChild != null">
+				fd_is_child,
+			</if>
+			<if test="fdRunScript != null">
+				fd_run_script,
+			</if>
+			<if test="fdOrder != null">
+				fd_order,
+			</if>
+			<if test="fdTerm != null">
+				fd_term,
+			</if>
+			<if test="fdDueTime != null">
+				fd_due_time,
+			</if>
+			<if test="fdIframe != null">
+				fd_iframe,
+			</if>
+			<if test="fdState != null">
+				fd_state,
+			</if>
+			<if test="fdCls != null">
+				fd_cls,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="fdId != null">
+				#{fdId,jdbcType=VARCHAR},
+			</if>
+			<if test="fdName != null">
+				#{fdName,jdbcType=VARCHAR},
+			</if>
+			<if test="fdDescription != null">
+				#{fdDescription,jdbcType=VARCHAR},
+			</if>
+			<if test="fdParentId != null">
+				#{fdParentId,jdbcType=VARCHAR},
+			</if>
+			<if test="fdChildCount != null">
+				#{fdChildCount,jdbcType=BIGINT},
+			</if>
+			<if test="fdIsChild != null">
+				#{fdIsChild,jdbcType=VARCHAR},
+			</if>
+			<if test="fdRunScript != null">
+				#{fdRunScript,jdbcType=VARCHAR},
+			</if>
+			<if test="fdOrder != null">
+				#{fdOrder,jdbcType=INTEGER},
+			</if>
+			<if test="fdTerm != null">
+				#{fdTerm,jdbcType=VARCHAR},
+			</if>
+			<if test="fdDueTime != null">
+				#{fdDueTime,jdbcType=VARCHAR},
+			</if>
+			<if test="fdIframe != null">
+				#{fdIframe,jdbcType=VARCHAR},
+			</if>
+			<if test="fdState != null">
+				#{fdState,jdbcType=VARCHAR},
+			</if>
+			<if test="fdCls != null">
+				#{fdCls,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.zero.pojo.SysMenuExample"
+		resultType="java.lang.Integer">
+		select count(*) from sys_menu
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update sys_menu
+		<set>
+			<if test="record.fdId != null">
+				fd_id = #{record.fdId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.fdName != null">
+				fd_name = #{record.fdName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.fdDescription != null">
+				fd_description =
+				#{record.fdDescription,jdbcType=VARCHAR},
+			</if>
+			<if test="record.fdParentId != null">
+				fd_parent_id = #{record.fdParentId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.fdChildCount != null">
+				fd_child_count = #{record.fdChildCount,jdbcType=BIGINT},
+			</if>
+			<if test="record.fdIsChild != null">
+				fd_is_child = #{record.fdIsChild,jdbcType=VARCHAR},
+			</if>
+			<if test="record.fdRunScript != null">
+				fd_run_script = #{record.fdRunScript,jdbcType=VARCHAR},
+			</if>
+			<if test="record.fdOrder != null">
+				fd_order = #{record.fdOrder,jdbcType=INTEGER},
+			</if>
+			<if test="record.fdTerm != null">
+				fd_term = #{record.fdTerm,jdbcType=VARCHAR},
+			</if>
+			<if test="record.fdDueTime != null">
+				fd_due_time = #{record.fdDueTime,jdbcType=VARCHAR},
+			</if>
+			<if test="record.fdIframe != null">
+				fd_iframe = #{record.fdIframe,jdbcType=VARCHAR},
+			</if>
+			<if test="record.fdState != null">
+				fd_state = #{record.fdState,jdbcType=VARCHAR},
+			</if>
+			<if test="record.fdCls != null">
+				fd_cls = #{record.fdCls,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update sys_menu
+		set fd_id = #{record.fdId,jdbcType=VARCHAR},
+		fd_name =
+		#{record.fdName,jdbcType=VARCHAR},
+		fd_description =
+		#{record.fdDescription,jdbcType=VARCHAR},
+		fd_parent_id =
+		#{record.fdParentId,jdbcType=VARCHAR},
+		fd_child_count =
+		#{record.fdChildCount,jdbcType=BIGINT},
+		fd_is_child =
+		#{record.fdIsChild,jdbcType=VARCHAR},
+		fd_run_script =
+		#{record.fdRunScript,jdbcType=VARCHAR},
+		fd_order =
+		#{record.fdOrder,jdbcType=INTEGER},
+		fd_term =
+		#{record.fdTerm,jdbcType=VARCHAR},
+		fd_due_time =
+		#{record.fdDueTime,jdbcType=VARCHAR},
+		fd_iframe =
+		#{record.fdIframe,jdbcType=VARCHAR},
+		fd_state =
+		#{record.fdState,jdbcType=VARCHAR},
+		fd_cls =
+		#{record.fdCls,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zero.pojo.SysMenu">
+		update sys_menu
+		<set>
+			<if test="fdName != null">
+				fd_name = #{fdName,jdbcType=VARCHAR},
+			</if>
+			<if test="fdDescription != null">
+				fd_description = #{fdDescription,jdbcType=VARCHAR},
+			</if>
+			<if test="fdParentId != null">
+				fd_parent_id = #{fdParentId,jdbcType=VARCHAR},
+			</if>
+			<if test="fdChildCount != null">
+				fd_child_count = #{fdChildCount,jdbcType=BIGINT},
+			</if>
+			<if test="fdIsChild != null">
+				fd_is_child = #{fdIsChild,jdbcType=VARCHAR},
+			</if>
+			<if test="fdRunScript != null">
+				fd_run_script = #{fdRunScript,jdbcType=VARCHAR},
+			</if>
+			<if test="fdOrder != null">
+				fd_order = #{fdOrder,jdbcType=INTEGER},
+			</if>
+			<if test="fdTerm != null">
+				fd_term = #{fdTerm,jdbcType=VARCHAR},
+			</if>
+			<if test="fdDueTime != null">
+				fd_due_time = #{fdDueTime,jdbcType=VARCHAR},
+			</if>
+			<if test="fdIframe != null">
+				fd_iframe = #{fdIframe,jdbcType=VARCHAR},
+			</if>
+			<if test="fdState != null">
+				fd_state = #{fdState,jdbcType=VARCHAR},
+			</if>
+			<if test="fdCls != null">
+				fd_cls = #{fdCls,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where fd_id = #{fdId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zero.pojo.SysMenu">
+		update sys_menu
+		set fd_name = #{fdName,jdbcType=VARCHAR},
+		fd_description =
+		#{fdDescription,jdbcType=VARCHAR},
+		fd_parent_id =
+		#{fdParentId,jdbcType=VARCHAR},
+		fd_child_count =
+		#{fdChildCount,jdbcType=BIGINT},
+		fd_is_child =
+		#{fdIsChild,jdbcType=VARCHAR},
+		fd_run_script =
+		#{fdRunScript,jdbcType=VARCHAR},
+		fd_order =
+		#{fdOrder,jdbcType=INTEGER},
+		fd_term = #{fdTerm,jdbcType=VARCHAR},
+		fd_due_time = #{fdDueTime,jdbcType=VARCHAR},
+		fd_iframe =
+		#{fdIframe,jdbcType=VARCHAR},
+		fd_state = #{fdState,jdbcType=VARCHAR},
+		fd_cls = #{fdCls,jdbcType=VARCHAR}
+		where fd_id =
+		#{fdId,jdbcType=VARCHAR}
+	</update>
+	<select id="queryMenus" parameterType="map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sys_menu
+		where fd_state ='1'
+		<if test="fdDueTime != null">
+			and fd_due_time >= #{fdDueTime,jdbcType=VARCHAR}
+		</if>
+		<if test="userName != null">
+			and (fd_parent_id='0' or fd_run_script in (select fd_url
+			from sys_permission
+			where
+			fd_id in
+			(select fd_permission_id from
+			sys_role_permission where fd_role_id in
+			(select fd_role_id from
+			sys_user_role where fd_user_id in
+			(select fd_id from sys_user where
+			fd_login_name =
+			#{userName,jdbcType=VARCHAR})))))
+		</if>
+		order by fd_order
+	</select>
+
+	<select id="queryList" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from sys_menu
+		where fd_id = #{fdId,jdbcType=VARCHAR}
+	</select>
+
+	<select id="queryNodeOrder" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+		select fd_order from sys_menu where fd_id =
+		#{fdId,jdbcType=VARCHAR}
+	</select>
+
+	<update id="updateNodeOrderIsChild" parameterType="map">
+		update
+		sys_menu set fd_order = fd_order+1 where fd_order >
+		#{fdNodeOrder,jdbcType=INTEGER}
+	</update>
+
+	<update id="updateNodeOrder" parameterType="map">
+		update sys_menu set
+		fd_order = fd_order+1 where fd_order >=
+		#{fdNodeOrder,jdbcType=INTEGER}
+	</update>
+
+	<select id="queryChildCountIsChild" resultType="java.lang.String"
+		parameterType="java.lang.String">
+		select fd_child_count from sys_menu where fd_id =
+		#{fdId,jdbcType=VARCHAR}
+	</select>
+
+	<select id="queryChildCount" resultType="java.lang.String"
+		parameterType="java.lang.String">
+		select fd_child_count from sys_menu where fd_id =
+		#{fdParentId,jdbcType=VARCHAR}
+	</select>
+
+	<update id="updateChildCountIsChild" parameterType="map">
+		update
+		sys_menu set fd_child_count = #{afterChildCount,jdbcType=VARCHAR}
+		where fd_id = #{fdId,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updateChildCount" parameterType="map">
+		update sys_menu set
+		fd_child_count = #{afterChildCount,jdbcType=VARCHAR}
+		where fd_id =
+		#{fdParentId,jdbcType=VARCHAR}
+	</update>
+
+	<select id="queryUniqueByParentId" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		SELECT count(*) FROM sys_menu
+		where
+		fd_parent_id=#{fdParentId}
+	</select>
+
+	<delete id="deleteInfoBatch" parameterType="java.util.List">
+		delete from sys_menu where fd_id in
+		<foreach collection="list" item="item" index="index" open="("
+			separator="," close=")">
+			#{item.fdId}
+		</foreach>
+	</delete>
+
+	<update id="updateChildCountSub" parameterType="java.lang.String">
+		update sys_menu
+		set fd_child_count = fd_child_count-1
+		where fd_id = (SELECT
+		tem.fd_parent_id from (select fd_parent_id from
+		sys_menu where
+		fd_id=#{fdId,jdbcType=VARCHAR})tem)
+	</update>
+
+	<select id="queryChilList" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from sys_menu
+		where fd_parent_id = #{fdId,jdbcType=VARCHAR}
+		order by
+		fd_order
+	</select>
+
+	<select id="queryOneLevelList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sys_menu
+		where fd_parent_id =
+		(SELECT tem.fd_id from (select fd_id
+		from sys_menu where
+		fd_parent_id='0')tem) order by fd_order
+	</select>
+
+	<update id="updateParentIdById" parameterType="map">
+		update sys_menu
+		set fd_parent_id = #{fdParentId,jdbcType=VARCHAR}
+		where
+		fd_id=#{fdId,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updateChildAndOrder" parameterType="map">
+		update sys_menu
+		set fd_child_count = #{fdChildCount,jdbcType=VARCHAR},
+		fd_order =
+		#{fdOrder,jdbcType=INTEGER}
+		where
+		fd_id=#{fdId,jdbcType=VARCHAR} and
+		fd_parent_id != '0'
+	</update>
+</mapper>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="  
+    http://www.springframework.org/schema/beans  
+    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd  
+    http://www.springframework.org/schema/context  
+    http://www.springframework.org/schema/context/spring-context-3.2.xsd  
+    http://www.springframework.org/schema/mvc  
+    http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+
+	<!-- 启动springmvc注解 -->
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/plain;charset=UTF-8</value>
+						<value>text/html;charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<!-- 访问静态资源 -->
+	<mvc:default-servlet-handler />
+
+	<!-- 扫描controller（controller层注入） -->
+	<context:component-scan base-package="com.zero.controller" />
+
+	<!-- 配制处理器映射器 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
+
+	<!-- 配制处理器适配器 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<!-- 将更改的webBindingInitializer 注入到原有的配置中 -->
+		<!-- <property name="webBindingInitializer" ref="webBindingInitializer"></property> -->
+		<!-- springmvc对json的支持 -->
+		<!-- <property name="messageConverters"> <list> <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"> 
+			<property name="prettyPrint" value="true"></property> </bean> </list> </property> -->
+		<!-- springmvc对响应乱码解决 -->
+		<property name="messageConverters">
+			<list>
+				<bean
+					class="org.springframework.http.converter.StringHttpMessageConverter">
+					<property name="supportedMediaTypes">
+						<list>
+							<value>text/plain;charset=UTF-8</value>
+							<value>text/html;charset=UTF-8</value>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 视图解析器 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	<!-- 配置附件上传大小 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize">
+			<value>102400000</value>
+		</property>
+		<property name="maxInMemorySize">
+			<value>10240000</value>
+		</property>
+	</bean>
+	<!-- 配置json -->
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<bean
+					class="org.springframework.http.converter.StringHttpMessageConverter">
+					<property name="supportedMediaTypes">
+						<list>
+							<value>text/html; charset=UTF-8</value>
+							<value>application/json;charset=UTF-8</value>
+						</list>
+					</property>
+				</bean>
+				<bean
+					class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+					<property name="supportedMediaTypes">
+						<list>
+							<value>text/html; charset=UTF-8</value>
+							<value>application/json;charset=UTF-8</value>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 使用spring mvc拦截器进行权限验证 -->
+	<!-- <mvc:interceptors>
+		<bean class="com.zero.sys.PermissionInterceptorAdapter" />
+	</mvc:interceptors> -->
+	<!-- 配制自定义参数绑定器 -->
+	<!-- <bean id="customerPropertyEditor" class="com.sinosoft.util.editor.CustomerPropertyEditor"> 
+		</bean> 将自定义的参数绑定器设置到WebBindingInitializer <bean id="webBindingInitializer" 
+		class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer"> 
+		<property name="propertyEditorRegistrar" value="customerPropertyEditor"></property> 
+		</bean> -->
+
+	<!-- 拦截器配置 -->
+	<!-- <bean id="customerInterceptor" class="com.sinosoft.util.interceptor.CustomerInterceptor"> 
+		<mvc:interceptors> <mvc:interceptor> <mvc:mapping path="/json/**" /> <ref 
+		bean="customerInterceptor" /> </mvc:interceptor> </mvc:interceptors> </bean> -->
+
+	<!-- 全局异常处理 -->
+	<!-- <bean class="com.sinosoft.util.exception.CustomerExceptionResolver" 
+		/> -->
+</beans>

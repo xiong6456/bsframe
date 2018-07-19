@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.zero</groupId>
+  <artifactId>bsframe</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+
+  <name>bsframe Maven Webapp</name>
+  <!-- FIXME change it to the project's website -->
+  <url>http://www.example.com</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <!-- spring版本号 -->
+    <spring.version>4.1.6.RELEASE</spring.version>
+    <!-- log4j日志文件管理包版本 -->
+    <slf4j.version>1.7.5</slf4j.version>
+    <log4j.version>1.2.12</log4j.version>
+    <!-- junit版本号 -->
+    <junit.version>4.11</junit.version>
+    <!-- javax版本号 -->
+    <javax.version>7.0</javax.version>
+    <!-- mybatis版本号 -->
+    <mybatis.version>3.2.1</mybatis.version>
+    <!-- json版本号 -->
+    <jackson.version>2.7.4</jackson.version>
+    <jsp.version>2.2</jsp.version>
+    <codec.version>1.9</codec.version>
+    <commons-io.version>1.3.2</commons-io.version>
+    <commons-fileupload.version>1.2.1</commons-fileupload.version>
+    <bcprov-ext-jdk15on.version>1.50</bcprov-ext-jdk15on.version>
+    <tagglibs-standard.version>1.1.2</tagglibs-standard.version>
+    <jstl.version>1.2</jstl.version>
+    <!-- mysql版本号 -->
+    <mysql.version>5.1.32</mysql.version>
+    <!-- EXCEL导入版本号 -->
+    <poi.version>3.16</poi.version>
+    <poi-ooxml.version>3.16</poi-ooxml.version>
+    <!-- shiro版本号 -->
+    <shiro.version>1.2.4</shiro.version>
+    <shiro-spring.version>1.2.4</shiro-spring.version>
+    <shiro-ehcache.version>1.2.4</shiro-ehcache.version>
+    <!-- dom版本号 -->
+    <jdom.version>2.0.2</jdom.version>
+    <!-- quartz版本号 -->
+    <quartz.version>2.3.0</quartz.version>
+  </properties>
+
+  <dependencies>
+    <!-- 添加Spring依赖 -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context-support</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aop</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aspects</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-expression</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <!--spring md5加密 -->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
+      <version>4.2.2.RELEASE</version>
+    </dependency>
+    <!--springmvc依赖 -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <!--spring单元测试依赖 -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>${spring.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <!--mybatis依赖 -->
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis</artifactId>
+      <version>${mybatis.version}</version>
+    </dependency>
+    <!-- mybatis/spring包 -->
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis-spring</artifactId>
+      <version>1.2.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.5</version>
+    </dependency>
+
+    <!-- <dependency> <groupId>javax.servlet.jsp</groupId> <artifactId>jsp-api</artifactId>
+        <version>${jsp.version}</version> </dependency> -->
+
+    <!-- 添加oracle jdbc driver -->
+    <!-- <dependency> <groupId>com.oracle</groupId> <artifactId>ojdbc14</artifactId>
+        <version>1.0.0</version> </dependency> -->
+
+    <!-- 添加MySql jdbc driver -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>${mysql.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <!-- javaee-api包 注意和项目使用的JDK版本对应 -->
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>${javax.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>${codec.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-io -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>${commons-io.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-ext-jdk15on -->
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcprov-ext-jdk15on</artifactId>
+      <version>${bcprov-ext-jdk15on.version}</version>
+    </dependency>
+
+    <!-- javaee-web-api包 注意和项目使用的JDK版本对应 -->
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-web-api</artifactId>
+      <version>${javax.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/taglibs/standard -->
+    <dependency>
+      <groupId>taglibs</groupId>
+      <artifactId>standard</artifactId>
+      <version>${tagglibs-standard.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/jstl/jstl -->
+    <dependency>
+      <groupId>jstl</groupId>
+      <artifactId>jstl</artifactId>
+      <version>${jstl.version}</version>
+    </dependency>
+    <!-- EXCEL导入版本号 -->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>${poi.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>${poi-ooxml.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>${commons-fileupload.version}</version>
+    </dependency>
+
+    <!-- json依赖 -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.6</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-httpclient</groupId>
+      <artifactId>commons-httpclient</artifactId>
+      <version>3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <version>1.8.3</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>3.2</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>net.sf.ezmorph</groupId>
+      <artifactId>ezmorph</artifactId>
+      <version>1.0.6</version>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.json-lib</groupId>
+      <artifactId>json-lib-ext-spring</artifactId>
+      <version>1.0.2</version>
+    </dependency>
+    <!-- json依赖 end -->
+
+    <!-- shiro -->
+    <dependency>
+      <groupId>org.apache.shiro</groupId>
+      <artifactId>shiro-core</artifactId>
+      <version>${shiro.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.shiro</groupId>
+      <artifactId>shiro-spring</artifactId>
+      <version>${shiro-spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.shiro</groupId>
+      <artifactId>shiro-ehcache</artifactId>
+      <version>${shiro-ehcache.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jdom</groupId>
+      <artifactId>jdom</artifactId>
+      <version>${jdom.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.quartz-scheduler</groupId>
+      <artifactId>quartz</artifactId>
+      <version>${quartz.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-compiler-plugin</artifactId>
+      <version>2.3.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-configuration</groupId>
+      <artifactId>commons-configuration</artifactId>
+      <version>1.8</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <finalName>bsframe</finalName>
+    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+      <plugins>
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.0.0</version>
+        </plugin>
+        <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.7.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.20.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>3.2.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.8.2</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>

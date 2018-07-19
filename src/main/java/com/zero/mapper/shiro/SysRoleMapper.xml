@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zero.mapper.shiro.SysRoleMapper">
+	<resultMap id="BaseResultMap" type="com.zero.pojo.SysRole">
+		<id column="fd_id" property="fdId" jdbcType="VARCHAR" />
+		<result column="fd_code" property="fdCode" jdbcType="VARCHAR" />
+		<result column="fd_name" property="fdName" jdbcType="VARCHAR" />
+		<result column="fd_description" property="fdDescription"
+			jdbcType="VARCHAR" />
+		<result column="fd_available" property="fdAvailable" jdbcType="VARCHAR" />
+		<result column="fd_order" property="fdOrder" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		fd_id, fd_code, fd_name, fd_description, fd_available, fd_order
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.zero.pojo.SysRoleExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from sys_role
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from sys_role
+		where fd_id = #{fdId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from sys_role
+		where fd_id = #{fdId,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.zero.pojo.SysRoleExample">
+		delete from sys_role
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.zero.pojo.SysRole">
+		insert into sys_role (fd_id, fd_code, fd_name,
+		fd_description, fd_available, fd_order
+		)
+		values (#{fdId,jdbcType=VARCHAR}, #{fdCode,jdbcType=VARCHAR},
+		#{fdName,jdbcType=VARCHAR},
+		#{fdDescription,jdbcType=VARCHAR}, #{fdAvailable,jdbcType=VARCHAR}, #{fdOrder,jdbcType=INTEGER}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.zero.pojo.SysRole">
+		insert into sys_role
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="fdId != null">
+				fd_id,
+			</if>
+			<if test="fdCode != null">
+				fd_code,
+			</if>
+			<if test="fdName != null">
+				fd_name,
+			</if>
+			<if test="fdDescription != null">
+				fd_description,
+			</if>
+			<if test="fdAvailable != null">
+				fd_available,
+			</if>
+			<if test="fdOrder != null">
+				fd_order,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="fdId != null">
+				#{fdId,jdbcType=VARCHAR},
+			</if>
+			<if test="fdCode != null">
+				#{fdCode,jdbcType=VARCHAR},
+			</if>
+			<if test="fdName != null">
+				#{fdName,jdbcType=VARCHAR},
+			</if>
+			<if test="fdDescription != null">
+				#{fdDescription,jdbcType=VARCHAR},
+			</if>
+			<if test="fdAvailable != null">
+				#{fdAvailable,jdbcType=VARCHAR},
+			</if>
+			<if test="fdOrder != null">
+				#{fdOrder,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.zero.pojo.SysRoleExample"
+		resultType="java.lang.Integer">
+		select count(*) from sys_role
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update sys_role
+		<set>
+			<if test="record.fdId != null">
+				fd_id = #{record.fdId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.fdCode != null">
+				fd_code = #{record.fdCode,jdbcType=VARCHAR},
+			</if>
+			<if test="record.fdName != null">
+				fd_name = #{record.fdName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.fdDescription != null">
+				fd_description = #{record.fdDescription,jdbcType=VARCHAR},
+			</if>
+			<if test="record.fdAvailable != null">
+				fd_available = #{record.fdAvailable,jdbcType=VARCHAR},
+			</if>
+			<if test="record.fdOrder != null">
+				fd_order = #{record.fdOrder,jdbcType=INTEGER},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update sys_role
+		set fd_id = #{record.fdId,jdbcType=VARCHAR},
+		fd_code = #{record.fdCode,jdbcType=VARCHAR},
+		fd_name = #{record.fdName,jdbcType=VARCHAR},
+		fd_description = #{record.fdDescription,jdbcType=VARCHAR},
+		fd_available = #{record.fdAvailable,jdbcType=VARCHAR},
+		fd_order = #{record.fdOrder,jdbcType=INTEGER}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zero.pojo.SysRole">
+		update sys_role
+		<set>
+			<if test="fdCode != null">
+				fd_code = #{fdCode,jdbcType=VARCHAR},
+			</if>
+			<if test="fdName != null">
+				fd_name = #{fdName,jdbcType=VARCHAR},
+			</if>
+			<if test="fdDescription != null">
+				fd_description = #{fdDescription,jdbcType=VARCHAR},
+			</if>
+			<if test="fdAvailable != null">
+				fd_available = #{fdAvailable,jdbcType=VARCHAR},
+			</if>
+			<if test="fdOrder != null">
+				fd_order = #{fdOrder,jdbcType=INTEGER},
+			</if>
+		</set>
+		where fd_id = #{fdId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zero.pojo.SysRole">
+		update sys_role
+		set fd_code = #{fdCode,jdbcType=VARCHAR},
+		fd_name = #{fdName,jdbcType=VARCHAR},
+		fd_description = #{fdDescription,jdbcType=VARCHAR},
+		fd_available = #{fdAvailable,jdbcType=VARCHAR},
+		fd_order = #{fdOrder,jdbcType=INTEGER}
+		where fd_id = #{fdId,jdbcType=VARCHAR}
+	</update>
+
+	<delete id="deleteByIds" parameterType="map">
+		delete from sys_role where fd_id in
+		<foreach collection="ids" item="fdId" index="index" open="("
+			separator="," close=")">
+			#{fdId}
+		</foreach>
+	</delete>
+</mapper>

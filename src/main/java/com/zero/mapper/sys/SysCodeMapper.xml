@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zero.mapper.sys.SysCodeMapper">
+	<resultMap id="BaseResultMap" type="com.zero.pojo.sys.SysCode">
+		<id column="code_id" property="codeId" jdbcType="VARCHAR" />
+		<result column="code_type" property="codeType" jdbcType="VARCHAR" />
+		<result column="code_name" property="codeName" jdbcType="VARCHAR" />
+		<result column="code_description" property="codeDescription"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		code_id, code_type, code_name, code_description
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.zero.pojo.sys.SysCodeExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from sys_code
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from sys_code
+		where code_id = #{codeId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from sys_code
+		where code_id = #{codeId,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.zero.pojo.sys.SysCodeExample">
+		delete from sys_code
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.zero.pojo.sys.SysCode">
+		insert into sys_code (code_id, code_type, code_name,
+		code_description)
+		values (#{codeId,jdbcType=VARCHAR}, #{codeType,jdbcType=VARCHAR},
+		#{codeName,jdbcType=VARCHAR},
+		#{codeDescription,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zero.pojo.sys.SysCode">
+		insert into sys_code
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="codeId != null">
+				code_id,
+			</if>
+			<if test="codeType != null">
+				code_type,
+			</if>
+			<if test="codeName != null">
+				code_name,
+			</if>
+			<if test="codeDescription != null">
+				code_description,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="codeId != null">
+				#{codeId,jdbcType=VARCHAR},
+			</if>
+			<if test="codeType != null">
+				#{codeType,jdbcType=VARCHAR},
+			</if>
+			<if test="codeName != null">
+				#{codeName,jdbcType=VARCHAR},
+			</if>
+			<if test="codeDescription != null">
+				#{codeDescription,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.zero.pojo.sys.SysCodeExample"
+		resultType="java.lang.Integer">
+		select count(*) from sys_code
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update sys_code
+		<set>
+			<if test="record.codeId != null">
+				code_id = #{record.codeId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.codeType != null">
+				code_type = #{record.codeType,jdbcType=VARCHAR},
+			</if>
+			<if test="record.codeName != null">
+				code_name = #{record.codeName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.codeDescription != null">
+				code_description = #{record.codeDescription,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update sys_code
+		set code_id = #{record.codeId,jdbcType=VARCHAR},
+		code_type = #{record.codeType,jdbcType=VARCHAR},
+		code_name = #{record.codeName,jdbcType=VARCHAR},
+		code_description = #{record.codeDescription,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zero.pojo.sys.SysCode">
+		update sys_code
+		<set>
+			<if test="codeType != null">
+				code_type = #{codeType,jdbcType=VARCHAR},
+			</if>
+			<if test="codeName != null">
+				code_name = #{codeName,jdbcType=VARCHAR},
+			</if>
+			<if test="codeDescription != null">
+				code_description = #{codeDescription,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where code_id = #{codeId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zero.pojo.sys.SysCode">
+		update sys_code
+		set code_type = #{codeType,jdbcType=VARCHAR},
+		code_name = #{codeName,jdbcType=VARCHAR},
+		code_description = #{codeDescription,jdbcType=VARCHAR}
+		where code_id = #{codeId,jdbcType=VARCHAR}
+	</update>
+
+	<delete id="deleteByIds" parameterType="map">
+		delete from sys_code where code_id in
+		<foreach collection="ids" item="codeId" index="index" open="("
+			separator="," close=")">
+			#{codeId}
+		</foreach>
+	</delete>
+	
+	
+	<select id="selectByTypeAndName" 
+		resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from sys_code
+		where 1=1
+		<if test="type!= null">
+			and code_type=#{type}
+		</if>
+		<if test="name!= null">
+			and code_name=#{name}
+		</if>
+	</select>
+	
+</mapper>

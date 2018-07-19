@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zero.mapper.shiro.SysOrgDeptMapper">
+	<resultMap id="BaseResultMap" type="com.zero.pojo.SysOrgDept">
+		<id column="fd_id" property="fdId" jdbcType="VARCHAR" />
+		<result column="fd_name" property="fdName" jdbcType="VARCHAR" />
+		<result column="fd_type" property="fdType" jdbcType="VARCHAR" />
+		<result column="fd_parent_id" property="fdParentId" jdbcType="VARCHAR" />
+		<result column="fd_major_id" property="fdMajorId" jdbcType="VARCHAR" />
+		<result column="fd_minor_id" property="fdMinorId" jdbcType="VARCHAR" />
+		<result column="fd_major_name" property="fdMajorName" jdbcType="VARCHAR" />
+		<result column="fd_minor_name" property="fdMinorName" jdbcType="VARCHAR" />
+		<result column="fd_child_count" property="fdChildCount"
+			jdbcType="VARCHAR" />
+		<result column="fd_order" property="fdOrder" jdbcType="INTEGER" />
+		<result column="fd_bak_1" property="fdBak1" jdbcType="VARCHAR" />
+		<result column="fd_bak_2" property="fdBak2" jdbcType="VARCHAR" />
+		<association property="fdSysCode" javaType="com.zero.pojo.sys.SysCode">
+			<id column="code_id" property="codeId"></id>
+			<result column="code_type" property="codeType" />
+			<result column="code_name" property="codeName" />
+			<result column="code_description" property="codeDescription" />
+		</association>
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		sys_org_dept.fd_id, sys_org_dept.fd_name, sys_org_dept.fd_type, sys_org_dept.fd_parent_id, sys_org_dept.fd_major_id,
+		sys_org_dept.fd_minor_id,
+		sys_org_dept.fd_child_count,
+		sys_org_dept.fd_order, sys_org_dept.fd_bak_1, sys_org_dept.fd_bak_2,
+		sys_user_1.fd_name as fd_major_name,
+		sys_user_2.fd_name as fd_minor_name
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.zero.pojo.SysOrgDeptExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from sys_org_dept 
+		left join sys_user sys_user_1 on sys_user_1.fd_Id = sys_org_dept.fd_major_id
+		left join sys_user sys_user_2 on sys_user_2.fd_Id = sys_org_dept.fd_minor_id
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from sys_org_dept
+		left join sys_user sys_user_1 on sys_user_1.fd_Id = sys_org_dept.fd_major_id
+		left join sys_user sys_user_2 on sys_user_2.fd_Id = sys_org_dept.fd_minor_id
+		where sys_org_dept.fd_id = #{fdId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		sys_org_dept
+		where fd_id = #{fdId,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.zero.pojo.SysOrgDeptExample">
+		delete from sys_org_dept
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.zero.pojo.SysOrgDept">
+		insert into sys_org_dept
+		(fd_id, fd_name, fd_type,
+		fd_parent_id, fd_major_id, fd_minor_id,
+		fd_child_count, fd_order, fd_bak_1,
+		fd_bak_2)
+		values
+		(#{fdId,jdbcType=VARCHAR}, #{fdName,jdbcType=VARCHAR},
+		#{fdType,jdbcType=VARCHAR},
+		#{fdParentId,jdbcType=VARCHAR},
+		#{fdMajorId,jdbcType=VARCHAR}, #{fdMinorId,jdbcType=VARCHAR},
+		#{fdChildCount,jdbcType=VARCHAR}, #{fdOrder,jdbcType=INTEGER},
+		#{fdBak1,jdbcType=VARCHAR},
+		#{fdBak2,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zero.pojo.SysOrgDept">
+		insert into sys_org_dept
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="fdId != null">
+				fd_id,
+			</if>
+			<if test="fdName != null">
+				fd_name,
+			</if>
+			<if test="fdType != null">
+				fd_type,
+			</if>
+			<if test="fdParentId != null">
+				fd_parent_id,
+			</if>
+			<if test="fdMajorId != null">
+				fd_major_id,
+			</if>
+			<if test="fdMinorId != null">
+				fd_minor_id,
+			</if>
+			<if test="fdChildCount != null">
+				fd_child_count,
+			</if>
+			<if test="fdOrder != null">
+				fd_order,
+			</if>
+			<if test="fdBak1 != null">
+				fd_bak_1,
+			</if>
+			<if test="fdBak2 != null">
+				fd_bak_2,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="fdId != null">
+				#{fdId,jdbcType=VARCHAR},
+			</if>
+			<if test="fdName != null">
+				#{fdName,jdbcType=VARCHAR},
+			</if>
+			<if test="fdType != null">
+				#{fdType,jdbcType=VARCHAR},
+			</if>
+			<if test="fdParentId != null">
+				#{fdParentId,jdbcType=VARCHAR},
+			</if>
+			<if test="fdMajorId != null">
+				#{fdMajorId,jdbcType=VARCHAR},
+			</if>
+			<if test="fdMinorId != null">
+				#{fdMinorId,jdbcType=VARCHAR},
+			</if>
+			<if test="fdChildCount != null">
+				#{fdChildCount,jdbcType=VARCHAR},
+			</if>
+			<if test="fdOrder != null">
+				#{fdOrder,jdbcType=INTEGER},
+			</if>
+			<if test="fdBak1 != null">
+				#{fdBak1,jdbcType=VARCHAR},
+			</if>
+			<if test="fdBak2 != null">
+				#{fdBak2,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.zero.pojo.SysOrgDeptExample"
+		resultType="java.lang.Integer">
+		select count(*) from sys_org_dept
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update sys_org_dept
+		<set>
+			<if test="record.fdId != null">
+				fd_id = #{record.fdId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.fdName != null">
+				fd_name = #{record.fdName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.fdType != null">
+				fd_type = #{record.fdType,jdbcType=VARCHAR},
+			</if>
+			<if test="record.fdParentId != null">
+				fd_parent_id = #{record.fdParentId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.fdMajorId != null">
+				fd_major_id = #{record.fdMajorId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.fdMinorId != null">
+				fd_minor_id = #{record.fdMinorId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.fdChildCount != null">
+				fd_child_count = #{record.fdChildCount,jdbcType=VARCHAR},
+			</if>
+			<if test="record.fdOrder != null">
+				fd_order = #{record.fdOrder,jdbcType=INTEGER},
+			</if>
+			<if test="record.fdBak1 != null">
+				fd_bak_1 = #{record.fdBak1,jdbcType=VARCHAR},
+			</if>
+			<if test="record.fdBak2 != null">
+				fd_bak_2 = #{record.fdBak2,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update sys_org_dept
+		set fd_id = #{record.fdId,jdbcType=VARCHAR},
+		fd_name = #{record.fdName,jdbcType=VARCHAR},
+		fd_type =
+		#{record.fdType,jdbcType=VARCHAR},
+		fd_parent_id =
+		#{record.fdParentId,jdbcType=VARCHAR},
+		fd_major_id =
+		#{record.fdMajorId,jdbcType=VARCHAR},
+		fd_minor_id =
+		#{record.fdMinorId,jdbcType=VARCHAR},
+		fd_child_count =
+		#{record.fdChildCount,jdbcType=VARCHAR},
+		fd_order =
+		#{record.fdOrder,jdbcType=INTEGER},
+		fd_bak_1 =
+		#{record.fdBak1,jdbcType=VARCHAR},
+		fd_bak_2 =
+		#{record.fdBak2,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zero.pojo.SysOrgDept">
+		update sys_org_dept
+		<set>
+			<if test="fdName != null">
+				fd_name = #{fdName,jdbcType=VARCHAR},
+			</if>
+			<if test="fdType != null">
+				fd_type = #{fdType,jdbcType=VARCHAR},
+			</if>
+			<if test="fdParentId != null">
+				fd_parent_id = #{fdParentId,jdbcType=VARCHAR},
+			</if>
+			<if test="fdMajorId != null">
+				fd_major_id = #{fdMajorId,jdbcType=VARCHAR},
+			</if>
+			<if test="fdMinorId != null">
+				fd_minor_id = #{fdMinorId,jdbcType=VARCHAR},
+			</if>
+			<if test="fdChildCount != null">
+				fd_child_count = #{fdChildCount,jdbcType=VARCHAR},
+			</if>
+			<if test="fdOrder != null">
+				fd_order = #{fdOrder,jdbcType=INTEGER},
+			</if>
+			<if test="fdBak1 != null">
+				fd_bak_1 = #{fdBak1,jdbcType=VARCHAR},
+			</if>
+			<if test="fdBak2 != null">
+				fd_bak_2 = #{fdBak2,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where fd_id = #{fdId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zero.pojo.SysOrgDept">
+		update
+		sys_org_dept
+		set fd_name = #{fdName,jdbcType=VARCHAR},
+		fd_type =
+		#{fdType,jdbcType=VARCHAR},
+		fd_parent_id =
+		#{fdParentId,jdbcType=VARCHAR},
+		fd_major_id =
+		#{fdMajorId,jdbcType=VARCHAR},
+		fd_minor_id =
+		#{fdMinorId,jdbcType=VARCHAR},
+		fd_child_count =
+		#{fdChildCount,jdbcType=VARCHAR},
+		fd_order =
+		#{fdOrder,jdbcType=INTEGER},
+		fd_bak_1 = #{fdBak1,jdbcType=VARCHAR},
+		fd_bak_2 = #{fdBak2,jdbcType=VARCHAR}
+		where fd_id =
+		#{fdId,jdbcType=VARCHAR}
+	</update>
+
+	<select id="queryUniqueByOrgDeptName" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		SELECT count(*) FROM sys_org_dept
+		where fd_name=#{fdName}
+	</select>
+
+	<delete id="deleteByIds" parameterType="map">
+		delete from sys_org_dept where fd_id in
+		<foreach collection="ids" item="fdId" index="index" open="("
+			separator="," close=")">
+			#{fdId}
+		</foreach>
+	</delete>
+
+	<select id="queryFdOrder" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+		select 
+			CASE (SELECT count(*) FROM sys_org_dept where fd_parent_id = #{fdParentId,jdbcType=VARCHAR}) 
+				WHEN 0 then (SELECT fd_order+1 from sys_org_dept where fd_id = #{fdParentId,jdbcType=VARCHAR}) 
+			ELSE max(fd_order)+1 END
+		from sys_org_dept where
+		fd_parent_id =
+		#{fdParentId,jdbcType=VARCHAR}
+	</select>
+
+	<select id="queryMaxFdOrder" resultType="java.lang.Integer">
+		SELECT
+		 CASE (SELECT count(*) FROM sys_org_dept) WHEN 0 then 0 ELSE max(fd_order)+1 END FROM
+		sys_org_dept
+	</select>
+
+	<update id="updateFdOrder" parameterType="java.lang.Integer">
+		update sys_org_dept set
+		fd_order = fd_order+1 where fd_order >=
+		#{fdOrder,jdbcType=INTEGER}
+	</update>
+
+	<update id="updateChildCount" parameterType="java.lang.String">
+		update sys_org_dept
+		set
+		fd_child_count = fd_child_count + 1
+		where fd_id =
+		#{fdParentId,jdbcType=VARCHAR}
+	</update>
+
+	<select id="queryChilList" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from sys_org_dept
+		left join sys_user sys_user_1 on sys_user_1.fd_Id = sys_org_dept.fd_major_id
+		left join sys_user sys_user_2 on sys_user_2.fd_Id = sys_org_dept.fd_minor_id
+		where sys_org_dept.fd_parent_id = #{fdId,jdbcType=VARCHAR}
+		order by
+		sys_org_dept.fd_order
+	</select>
+
+	<update id="updateChildCountSub" parameterType="java.lang.String">
+		update
+		sys_org_dept
+		set fd_child_count = fd_child_count-1
+		where fd_id = (SELECT
+		tem.fd_parent_id from (select fd_parent_id from
+		sys_org_dept where
+		fd_id=#{fdId,jdbcType=VARCHAR})tem)
+	</update>
+
+	<delete id="deleteInfoBatch" parameterType="map">
+		delete from sys_org_dept where fd_id in
+		<foreach collection="ids" item="fdId" index="index" open="("
+			separator="," close=")">
+			#{fdId}
+		</foreach>
+	</delete>
+
+
+	<select id="queryCountChildren" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+		select count(*)
+		from sys_org_dept
+		where fd_parent_id =
+		#{fdId,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT t2.fd_id, t2.fd_name,t2.fd_order,sc.code_name, t2.fd_parent_id, t2.fd_major_id,
+			t2.fd_minor_id,t2.fd_child_count,t2.fd_bak_1, t2.fd_bak_2,
+			sys_user_1.fd_name as fd_major_name,
+			sys_user_2.fd_name as fd_minor_name
+		    FROM ( 
+		        SELECT 
+		                @r AS _id, 
+		                (SELECT @r := fd_parent_id FROM sys_org_dept WHERE fd_id = _id) AS parent_id, 
+		                 @l := @l + 1 AS lvl 
+		        FROM 
+		                (SELECT @r := #{fdId,jdbcType=VARCHAR}, @l := 0) vars, 
+		                sys_org_dept h 
+		        WHERE @r != 0) T1 
+		    JOIN sys_org_dept T2 
+		    ON T1._id = T2.fd_id
+		    left join sys_code sc on sc.code_id=fd_type
+		    left join sys_user sys_user_1 on sys_user_1.fd_Id = T2.fd_major_id
+			left join sys_user sys_user_2 on sys_user_2.fd_Id = T2.fd_minor_id 
+		where T2.fd_id !=#{fdId,jdbcType=VARCHAR}
+		UNION all 
+		
+		SELECT sod.fd_id, sod.fd_name,sod.fd_order,sc.code_name, sod.fd_parent_id, sod.fd_major_id,
+			sod.fd_minor_id,sod.fd_child_count,sod.fd_bak_1, sod.fd_bak_2,
+			sys_user_1.fd_name as fd_major_name,
+			sys_user_2.fd_name as fd_minor_name
+		FROM sys_org_dept sod
+		left join sys_code sc on sc.code_id=fd_type
+		left join sys_user sys_user_1 on sys_user_1.fd_Id = fd_major_id
+		left join sys_user sys_user_2 on sys_user_2.fd_Id = fd_minor_id 
+		 WHERE FIND_IN_SET(sod.fd_id,queryChildrenAreaInfo(#{fdId,jdbcType=VARCHAR}))ORDER BY fd_order;
+	</select>
+	
+	<select id="selectList" resultMap="BaseResultMap">
+		select
+		sod.fd_id, sod.fd_name,
+		sc.code_name, sod.fd_parent_id, sod.fd_major_id,
+		sod.fd_minor_id,
+		sod.fd_child_count,
+		sod.fd_order, sod.fd_bak_1, sod.fd_bak_2,
+		sys_user_1.fd_name as fd_major_name,
+		sys_user_2.fd_name as fd_minor_name
+		from
+		sys_org_dept sod left join sys_code sc
+		on sc.code_id=sod.fd_type
+		left join sys_user sys_user_1 on sys_user_1.fd_Id = sod.fd_major_id
+		left join sys_user sys_user_2 on sys_user_2.fd_Id = sod.fd_minor_id 
+		order
+		by fd_order
+	</select>
+</mapper>
